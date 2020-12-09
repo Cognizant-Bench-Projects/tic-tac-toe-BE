@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/tic-tac-toe
+    url: jdbc:postgresql://database-1.cjhzkqqc8ctk.us-east-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+    generate-ddl: true
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: 7d18ff386dd6c5107795
+            clientSecret: 1b63bd93d09f9d80ba32f79e3ddd2318b82aa91e
+            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+          google:
+            clientId: 55267902117-2m3tnf0957boeokfipcng8uk6klmt8i3.apps.googleusercontent.com
+            clientSecret: ZttYvUrZA6_jbM6Ut9iTyt0j
+            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
