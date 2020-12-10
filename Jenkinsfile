@@ -7,9 +7,10 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 echo 'Testing..'
+                sh 'mvn -Dtest=UserServiceTest test'
             }
         }
         stage('Deploy') {
