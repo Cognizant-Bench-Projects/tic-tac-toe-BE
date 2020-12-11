@@ -12,18 +12,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh "mvn package -Dmaven.test.skip=false"
+                junit "**/target/surefire-reports/*.xml"
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-            }
-        }
-        post{
-            always{
-                script{
-                    junit "**/target/surefire-reports/*.xml"
-                }
             }
         }
     }
