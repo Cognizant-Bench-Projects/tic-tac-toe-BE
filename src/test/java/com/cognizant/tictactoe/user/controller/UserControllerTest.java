@@ -21,7 +21,7 @@ class UserControllerTest {
 
     @Test
     void login() throws Exception {
-        User user = User.builder().email("newuser@email.com").password("password").build();
+        User user = User.builder().email("user@email.com").password("password").build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/users/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -30,8 +30,18 @@ class UserControllerTest {
     }
 
     @Test
+    void register_success() throws Exception {
+        User user = User.builder().email("newuser1@email.com").username("newuser1").password("password").build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(user)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     void register_failed() throws Exception {
-        User user = User.builder().email("newuser1@emai.com").username("newuser").password("password").build();
+        User user = User.builder().email("newuser@email.com").username("newuser").password("password").build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
