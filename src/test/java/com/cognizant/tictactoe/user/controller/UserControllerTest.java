@@ -31,7 +31,7 @@ class UserControllerTest {
 
     @Test
     void register() throws Exception {
-        User user = User.builder().email("newuser@email.com").username("newuser").password("password").build();
+        User user = User.builder().email("newuser1@email.com").username("newuser1").password("password").build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/users")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -9,6 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                bat "mvn package -Dmaven.test.skip=false"
                 junit "**/target/surefire-reports/*.xml"
             }
         }
