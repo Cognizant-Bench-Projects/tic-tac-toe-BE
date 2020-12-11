@@ -30,13 +30,13 @@ class UserControllerTest {
     }
 
     @Test
-    void register() throws Exception {
-        User user = User.builder().email("newuser1@email.com").username("newuser1").password("password").build();
+    void register_failed() throws Exception {
+        User user = User.builder().email("newuser1@emai.com").username("newuser").password("password").build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(user)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isForbidden());
     }
 
     public static String asJsonString(final Object obj) {
