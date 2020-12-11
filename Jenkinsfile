@@ -2,20 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage ('Initialize') {
             steps {
-                echo 'Building..'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
-        stage('Unit Test') {
+
+        stage ('Build') {
             steps {
-                echo 'Testing..'
-                sh 'mvn -Dtest=UserServiceTest test'
+                sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml'
+                }
             }
         }
     }
