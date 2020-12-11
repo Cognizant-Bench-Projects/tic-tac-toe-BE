@@ -2,8 +2,7 @@ spring:
   application:
     name: user-service
   datasource:
-#    url: jdbc:postgresql://localhost:5432/tic-tac-toe
-    url: jdbc:postgresql://database-1.cjhzkqqc8ctk.us-east-1.rds.amazonaws.com:5432/postgres
+    url: jdbc:postgresql://localhost:5432/tic-tac-toe
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
