@@ -11,21 +11,18 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-                sh 'make check || true'
-                junit '**/target/*.xml'
+                sh "mvn package -Dmaven.test.skip=false"
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                when {
-                  expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                  }
-                }
-                steps {
-                    sh 'make publish'
+            }
+        }
+        post{
+            always{
+                script{
+                    junit "**/target/surefire-reports/*.xml"
                 }
             }
         }
