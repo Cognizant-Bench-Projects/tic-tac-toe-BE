@@ -2,25 +2,30 @@ pipeline {
     agent any
 
     stages {
-        stage ('Initialize') {
+        stage('Build') {
             steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
+                echo 'Building..'
+                sh 'make'
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
-
-        stage ('Build') {
+        stage('Test') {
             steps {
-                withMaven {
-                  sh "mvn clean verify"
-                }
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
+                echo 'Testing..'
+                sh 'make check || true'
+                junit '**/target/*.xml'
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml'
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+                when {
+                  expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                  }
+                }
+                steps {
+                    sh 'make publish'
                 }
             }
         }
