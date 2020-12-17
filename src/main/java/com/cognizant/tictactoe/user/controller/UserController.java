@@ -15,6 +15,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Welcome to my Tic Tac Toe game!");
+    }
+
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         return ResponseEntity.ok(userService.login(user));
