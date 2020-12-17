@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/users")
+@RequestMapping
 public class UserController {
 
     @Autowired
@@ -20,12 +20,12 @@ public class UserController {
         return ResponseEntity.ok("Welcome to my Tic Tac Toe game!");
     }
 
-    @PostMapping("/login")
+    @PostMapping("users/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         return ResponseEntity.ok(userService.login(user));
     }
 
-    @PostMapping
+    @PostMapping("users")
     public ResponseEntity<User> register(@RequestBody User user) throws Exception {
         return new ResponseEntity<User>(userService.register(user), HttpStatus.CREATED);
     }
