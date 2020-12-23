@@ -1,25 +1,12 @@
 version: '3'
-
 services:
-  app:
-    image: 'tic-tac-toe:latest'
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: app
-    depends_on:
-      - postgresdb
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tic-tac-toe
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
-  postgresdb:
-    image: 'postgres:13.1-alpine'
-    container_name: postgresdb
+  web:
+    image: tic-tac-toe:latest
     ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - "80:80"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: tic-tac-toe
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: web

@@ -21,7 +21,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         String token = tokenGenerator.createToken(authentication);
-        String url = "http://localhost:4200/auth";
+        String url = "http://jia-tic-tac-toe.s3-website-us-east-1.amazonaws.com/play-tic-tac-toe/auth";
 
         String targetUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("token", token)
